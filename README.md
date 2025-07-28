@@ -1,97 +1,74 @@
-### AdobeIndiaHackathon25_HackFlow_1B
-## Challenge: Round 1B — Connect What Matters — For the User Who Matters
-This solution is designed to simulate an intelligent document analyst, extracting and ranking the most relevant sections from a collection of PDFs, tailored to a defined persona and their specific job-to-be-done.
 
-### Problem Overview
-Input:
+# Persona-Driven Document Intelligence
 
-A collection of PDFs (3–10 documents)
+## 🧠 Overview
+This project extracts and analyzes the most relevant sections and sentences from a collection of PDF documents, guided by a user-defined **persona** and **job-to-be-done**. It uses **TF-IDF** and **cosine similarity** to rank and summarize content effectively.
 
-A persona definition (role and focus)
+## ✨ Features
+- 📄 Extracts **top sections** from PDFs based on persona and task
+- 🧮 Ranks sections and sentences by **relevance score**
+- 📦 Outputs **structured JSON** with metadata, extracted sections, and sub-section analysis
+- ⚡ **Runs on CPU only** with model size ≤ 1GB
+- 🚀 Processes **3–5 documents in under 60 seconds**
+- 🔒 **Offline capable** – no internet access required during execution
 
-A job-to-be-done (goal tied to persona)
+## 📥 Input
+- `challenge1b_input.json`: Defines persona, job-to-be-done, and list of PDF filenames
+- PDF files: All referenced PDFs must be placed in the `pdfs/` directory
 
-Output:
+## 📤 Output
+- `output.json`: Structured results including metadata, selected sections, and relevant sentence analysis
 
-A structured JSON file with:
+## 🛠️ Usage Instructions
 
-Metadata: documents, persona, job, timestamp
+### Step 1: Prepare Environment
+Place your input JSON and PDF files in the project directory as described.
 
-Extracted sections: title, page number, importance rank
+### Step 2: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-Sub-section analysis: refined content with traceability
+### Step 3: Run the Script
+```bash
+python script.py --input challenge1b_input.json --pdf_dir pdfs --output output.json
+```
 
-### What This Solution Does
+## 🐳 Docker Instructions
 
-Accepts a collection of documents from /app/input
+### Step 1: Build Docker Image
+```bash
+docker build -t persona-doc-intel .
+```
 
-Parses the persona and job-to-be-done from JSON or provided config
+### Step 2: Run the Container
+On **Windows (CMD or PowerShell)**:
+```bash
+docker run --rm -v %cd%:/app persona-doc-intel   python script.py --input challenge1b_input.json --pdf_dir pdfs --output output.json
+```
 
-Analyzes each document for semantic relevance to the job
+On **Linux/Mac**:
+```bash
+docker run --rm -v $(pwd):/app persona-doc-intel   python script.py --input challenge1b_input.json --pdf_dir pdfs --output output.json
+```
 
-Extracts and ranks the most relevant sections
+## 🧪 Sample Input/Output
+- Refer to `challenge1b_input.json` for a sample input format.
+- The `output.json` will follow the schema defined in the problem statement.
 
-Refines content at a sub-section level
+## ⛓️ Constraints
+- ✅ Runs on **CPU only**
+- 📦 Model size is **≤ 1GB**
+- ⏱️ **≤ 60 seconds** processing time for 3–5 PDFs
+- 🌐 **No internet access required** (offline execution supported)
 
-Outputs a structured JSON file in /app/output following the provided schema
+---
 
-### Core Approach
+<div align="center">
 
-### System Features
+**🔍 Persona-Based PDF Summarization Engine**  
+*Efficient • Offline • Relevant*
 
-Fast Execution: Processes 3–5 documents within 60 seconds
+**Team HackFlow** — Crafting smart document workflows 🚀
 
-Model Size: Lightweight >1GB
-
-Accuracy: Tuned for up to 94% accuracy 
-
-Offline Ready: Requires no internet (runs fully local)
-
-Minimal Latency: Efficient text parsing + relevance ranking = less ping
-
-### Runtime & Constraints
-
- CPU-only (no GPU)
-
- ≤ 1GB total model/dependency size
-
- ≤ 60 seconds runtime for 3–5 PDFs
-
- Works 100% offline
-
-### Dockerized Execution
-
-Build Command
-
-    docker build --platform linux/amd64 -t pdf-processor .
-
-Run Command
-
-        docker run --rm -v $(pwd)/sample_dataset/pdfs:/app/input:ro -v $(pwd)/sample_dataset/outputs:/app/output --network none pdf-processor
-  
-
-### Dependencies Used
-Here's the exact environment defined in requirements.txt:
-
-    pdfminer.six==20221105
-    scikit-learn==1.3.0
-    numpy==1.25.2
-    joblib==1.3.2
-    threadpoolctl==3.2.0
-
-Bash :
-
-    pip install -r requirements.txt
-
-These libraries were chosen for:
-
-Accuracy (~94%) in semantic similarity scoring
-
-Fast execution with minimal latency
-
-No external model downloads
-
-Small footprint (entire stack < 100MB)
-
-
-
+</div>
