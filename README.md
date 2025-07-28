@@ -61,6 +61,15 @@ Minimal Latency: Efficient text parsing + relevance ranking = less ping
 
 ### Dockerized Execution
 
+Build Command
+
+    docker build --platform linux/amd64 -t pdf-processor .
+
+Run Command
+
+        docker run --rm -v $(pwd)/sample_dataset/pdfs:/app/input:ro -v $(pwd)/sample_dataset/outputs:/app/output --network none pdf-processor
+  
+
 ### Dependencies Used
 Here's the exact environment defined in requirements.txt:
 
